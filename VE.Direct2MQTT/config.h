@@ -41,12 +41,12 @@
 
 // Activate Over The Air Update of firmware
 // rename to NO_USE_OTA if you do not have a webserver that can server new firmware
-#define USE_OTA
+#define NO_USE_OTA
 
 //
 // Use OneWire temperature sensors 
 //
-#define USE_ONEWIRE
+#define NO_USE_ONEWIRE
 
 #ifdef USE_ONEWIRE
 #define ONEWIRE_PIN 22
@@ -106,8 +106,8 @@ const char* rootCACertificate = \
 
 // WiFi SSID'S and passwords
 // the strongest WiFi station will be used
-const char* ssid[] = {"SSID1", "SSID2", "SSID3"};
-const char* pw[] = {"PW_SSID1", "PW_SSID2", "PW_SSID3"};
+const char* ssid[] = {"AirPort"};
+const char* pw[] = {"skrinavesak"};
 
 /*
    MQTT parameters
@@ -117,22 +117,22 @@ const char* pw[] = {"PW_SSID1", "PW_SSID2", "PW_SSID3"};
    using your id
 */
 #define MQTT_MAX_RETRIES 3   // maximum retires to reach a MQTT broker
-const char* mqtt_server[] = {"IP_MQTT1", "IP_MQTT2"};
+const char* mqtt_server[] = {"192.168.1.193"};
 // no SSL ports
-const uint16_t mqtt_port[] = {1883, 1883};
+const uint16_t mqtt_port[] = {32779};
 // SSL ports
-//const uint16_t mqtt_port[] = {8883, 8883};
-const char* mqtt_clientID[] = {"clientID", "clientID"};
-const char* mqtt_username[] = {"mqttUserName", "mqttUserName"};
-const char* mqtt_pw[] = {"mqttUserPW", "mqttUserPW"};
+//const uint16_t mqtt_port[] = {8883};
+const char* mqtt_clientID[] = {"LKOL"};
+const char* mqtt_username[] = {"mqttUserName"};
+const char* mqtt_pw[] = {"mqttUserPW"};
 int mqtt_server_count = sizeof(mqtt_server) / sizeof(mqtt_server[0]);
 
 // this is the MQTT prefix; below that we use the string from VE.Direct
 // e.g. /MPPT75-15/PID  for Product ID
-String MQTT_PREFIX = "/MPPT75-15NOSSL";
-String MQTT_PARAMETER = "/MPPT75-15NOSSL/Parameter"; 
+String MQTT_PREFIX = "LKOL/MPPT100-20-NOSSL";
+String MQTT_PARAMETER = "LKOL/MPPT100-20-NOSSL/Parameter"; 
 #ifdef USE_ONEWIRE
-String MQTT_ONEWIRE = "/MPPT75-15NOSSL/OneWire";
+String MQTT_ONEWIRE = "LKOL/MPPT100-20-NOSSL/OneWire";
 #endif
 
 
@@ -167,10 +167,10 @@ time_t last_ota;
    should be able to read that voltage as input
 */
 #ifndef VEDIRECT_RX
-#define VEDIRECT_RX 33  // connected to TX of the VE.Direct device; ATTENTION divider may be needed, see abowe
+#define VEDIRECT_RX 35  // connected to TX of the VE.Direct device; ATTENTION divider may be needed, see abowe
 #endif
-#ifndef VEDIRECT_TX
-#define VEDIRECT_TX 32 // connected to RX of the VE:DIRECT device
+#ifndef VEDIRECT_TX 
+#define VEDIRECT_TX -1 // connected to RX of the VE:DIRECT device
 #endif
 
 /*
@@ -195,4 +195,4 @@ time_t last_ota;
    Waittime of 1 or 0 means every received packet will be transmitted to MQTT
    Packets during OTA or OneWire will be discarded
 */
-int VE_WAIT_TIME = 1; // in s
+int VE_WAIT_TIME = 2; // in s
